@@ -1,3 +1,36 @@
 <resources>
     <string name="app_name">Baking</string>
+    <string name="request_url" translatable="false">https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json</string>
+    <string name="serves">Serves: %1$s</string>
+    <string name="recipe" translatable="false">recipe</string>
+    <string name="name" translatable="false">name</string>
+    <string name="servings" translatable="false">servings</string>
+    <string name="ingredients" translatable="false">ingredients</string>
+    <string name="ingredient" translatable="false">ingredient</string>
+    <string name="measure" translatable="false">measure</string>
+    <string name="quantity" translatable="false">quantity</string>
+    <string name="steps" translatable="false">steps</string>
+    <string name="step" translatable="false">step</string>
+    <string name="description" translatable="false">description</string>
+    <string name="video_url" translatable="false">videoURL</string>
+    <string name="thumbnail_url" translatable="false">thumbnailURL</string>
+    <string name="error_creating_url" translatable="false">Error creating url.</string>
+    <string name="error_retrieving_data_response_code" translatable="false">Error retrieving data. Response code:</string>
+    <string name="error_retrieving_data" translatable="false">Error retrieving movie data.</string>
+    <string name="error_closing_input_stream" translatable="false">Error closing input stream.</string>
+    <string name="error_parsing_response" translatable="false">Error parsing JSON response</string>
+    <string name="get" translatable="false">GET</string>
+    <string name="no_internet_connection">No internet connection.</string>
+    <string name="ingredients_header">Ingredients:</string>
+    <string name="steps_header">Steps:</string>
+    <string name="short_description" translatable="false">shortDescription</string>
+    <string name="more_info">More info</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="image">image</string>
+    <string name="recipe_image">Recipe image</string>
+    <string name="current_step">current_step</string>
+    <string name="previous_step">previous_step</string>
+    <string name="next_step">next_step</string>
+    <string name="step_position">step_position</string>
 </resources>
