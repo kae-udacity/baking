@@ -3,7 +3,9 @@ package com.example.android.baking.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -37,6 +39,9 @@ public class RecipeDetailsFragment extends Fragment implements StepAdapter.StepO
 
     @BindView(R.id.recycler_view_steps)
     RecyclerView recyclerViewSteps;
+
+    @BindView(R.id.nested_scroll_view_recipe_details)
+    NestedScrollView nestedScrollViewRecipeDetails;
 
     private RecipeDetailsOnClickListener listener;
     private IngredientAdapter ingredientAdapter;
@@ -100,6 +105,28 @@ public class RecipeDetailsFragment extends Fragment implements StepAdapter.StepO
     public void onDetach() {
         super.onDetach();
         listener = null;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putIntArray(getString(R.string.scroll_position),
+                new int[]{nestedScrollViewRecipeDetails.getScrollX(), nestedScrollViewRecipeDetails.getScrollY()});
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            final int[] position = savedInstanceState.getIntArray(getString(R.string.scroll_position));
+            if(position != null) {
+                nestedScrollViewRecipeDetails.post(new Runnable() {
+                    public void run() {
+                        nestedScrollViewRecipeDetails.scrollTo(position[0], position[1]);
+                    }
+                });
+            }
+        }
     }
 
     @Override

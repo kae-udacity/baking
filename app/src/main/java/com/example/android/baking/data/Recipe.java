@@ -3,10 +3,12 @@ package com.example.android.baking.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.Gson;
+
 import java.util.List;
 
 /**
- * Created by Kenneth on 04/12/2017.
+ * Stores the data of the recipe.
  */
 
 public class Recipe implements Parcelable {
@@ -77,5 +79,15 @@ public class Recipe implements Parcelable {
         parcel.writeTypedList(steps);
         parcel.writeInt(servings);
         parcel.writeString(imageUrl);
+    }
+
+    public String serialize() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    public static Recipe fromJson(String serializedRecipe) {
+        Gson gson = new Gson();
+        return gson.fromJson(serializedRecipe, Recipe.class);
     }
 }

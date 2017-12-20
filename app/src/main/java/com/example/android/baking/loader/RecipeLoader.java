@@ -9,7 +9,7 @@ import com.example.android.baking.util.NetworkUtils;
 import java.util.List;
 
 /**
- * Created by Kenneth on 04/12/2017.
+ * Starts a {@link android.content.Loader} to fetch the recipe info.
  */
 
 public class RecipeLoader extends AsyncTaskLoader<List<Recipe>> {

@@ -16,7 +16,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Kenneth on 04/12/2017.
+ * Creates and populates views for the list of steps in the recipe.
  */
 
 public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder> {

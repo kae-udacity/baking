@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Kenneth on 04/12/2017.
+ * Provides helper methods for creating a HTTP request to fetch the data from the API.
  */
 
 public final class NetworkUtils {

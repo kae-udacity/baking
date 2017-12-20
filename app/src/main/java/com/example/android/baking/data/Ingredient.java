@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Kenneth on 04/12/2017.
+ * Stores the data of the ingredient.
  */
 
 public class Ingredient implements Parcelable {

@@ -1,25 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/scroll_view_step_description"
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view_step"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/card_view_previous_step">
 
-        <TextView
-            android:id="@+id/text_view_step_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="recipe step description" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </ScrollView>
+            <com.google.android.exoplayer2.ui.SimpleExoPlayerView
+                android:id="@+id/player_view_step"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:resize_mode="fixed_width" />
+
+            <ImageView
+                android:id="@+id/image_view_step"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/thumbnail_url"/>
+
+            <TextView
+                android:id="@+id/text_view_step_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                tools:text="recipe step description" />
+
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline_step_details_vertical"
@@ -29,6 +49,7 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card_view_previous_step"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="0dp"
@@ -36,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline_step_details_vertical"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/scroll_view_step_description"
+        app:layout_constraintTop_toBottomOf="@id/nested_scroll_view_step"
         app:layout_constraintVertical_bias="1.0">
 
         <Button
@@ -51,6 +72,7 @@
     </android.support.v7.widget.CardView>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card_view_next_step"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:cardCornerRadius="0dp"
@@ -58,7 +80,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/guideline_step_details_vertical"
-        app:layout_constraintTop_toBottomOf="@id/scroll_view_step_description"
+        app:layout_constraintTop_toBottomOf="@id/nested_scroll_view_step"
         app:layout_constraintVertical_bias="1.0">
 
         <Button

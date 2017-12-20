@@ -33,4 +33,17 @@
     <string name="previous_step">previous_step</string>
     <string name="next_step">next_step</string>
     <string name="step_position">step_position</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="image_url">recipe_image_url</string>
+    <string name="nutella_pie">Nutella Pie</string>
+    <string name="brownies">Brownies</string>
+    <string name="yellow_cake">Yellow Cake</string>
+    <string name="cheesecake">Cheesecake</string>
+    <string name="action_bar">action_bar</string>
+    <string name="baking">Baking</string>
+    <string name="recipe_cannot_be_displayed">Recipe cannot be displayed.</string>
+    <string name="baking_preferences">baking_preferences</string>
+    <string name="serialized_recipe">serialized_recipe</string>
+    <string name="scroll_position">scroll_position</string>
 </resources>

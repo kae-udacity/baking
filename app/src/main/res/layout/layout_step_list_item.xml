@@ -13,7 +13,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_view_step"
+        android:textColor="@color/text_view_step_text"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

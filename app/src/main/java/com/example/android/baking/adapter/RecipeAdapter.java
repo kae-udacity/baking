@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.android.baking.R;
 import com.example.android.baking.data.Recipe;
+import com.example.android.baking.util.ImageUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Kenneth on 02/12/2017.
+ * Creates and populates views for the list of recipes.
  */
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
@@ -60,7 +61,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             Uri uri = Uri.parse(recipe.getImageUrl());
             Picasso.with(context).load(uri).into(holder.imageViewRecipeItem);
         } else {
-            holder.imageViewRecipeItem.setVisibility(View.GONE);
+            int drawableId = ImageUtils.getImageResourceId(context, recipe.getName());
+            Picasso.with(context).load(drawableId).into(holder.imageViewRecipeItem);
         }
     }
 

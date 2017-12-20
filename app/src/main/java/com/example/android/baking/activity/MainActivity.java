@@ -25,6 +25,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity implements
         RecipeAdapter.RecipeOnClickHandler {
 
+    private static final int RECIPE_LOADER_ID = 0;
+
     @BindView(R.id.recycler_view_recipes)
     RecyclerView recyclerViewRecipes;
 
@@ -34,10 +36,10 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.loading_indicator)
     ProgressBar loadingIndicator;
 
-    private static final int RECIPE_LOADER_ID = 0;
     private RecipeAdapter recipeAdapter;
 
-    private LoaderManager.LoaderCallbacks<List<Recipe>> recipeLoaderCallbacks = new LoaderManager.LoaderCallbacks<List<Recipe>>() {
+    private LoaderManager.LoaderCallbacks<List<Recipe>> recipeLoaderCallbacks =
+            new LoaderManager.LoaderCallbacks<List<Recipe>>() {
 
         @Override
         public RecipeLoader onCreateLoader(int i, Bundle bundle) {
@@ -89,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onClick(Recipe recipe) {
         Intent intent = new Intent(this, RecipeDetailsActivity.class);
-        intent.putExtra("recipe", recipe);
+        intent.putExtra(getString(R.string.recipe), recipe);
         startActivity(intent);
     }
 }

@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Kenneth on 04/12/2017.
+ * Stores the data of the recipe.
  */
 
 public class Step implements Parcelable {
@@ -28,7 +28,7 @@ public class Step implements Parcelable {
         thumbnailUrl = in.readString();
     }
 
-    static final Creator<Step> CREATOR = new Creator<Step>() {
+    public static final Creator<Step> CREATOR = new Creator<Step>() {
         @Override
         public Step createFromParcel(Parcel in) {
             return new Step(in);
