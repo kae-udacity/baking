@@ -42,6 +42,7 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
         }
 
         Intent intent = new Intent(context, ListWidgetService.class);
+        //Add uri to intent to allow for multiple widgets independent of each other.
         Uri uri = RecipeContract.BASE_CONTENT_URI
                 .buildUpon()
                 .appendPath("widget")
