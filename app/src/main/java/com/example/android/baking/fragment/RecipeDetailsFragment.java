@@ -44,7 +44,6 @@ public class RecipeDetailsFragment extends Fragment implements StepAdapter.StepO
     NestedScrollView nestedScrollViewRecipeDetails;
 
     private RecipeDetailsOnClickListener listener;
-    private IngredientAdapter ingredientAdapter;
     private StepAdapter stepAdapter;
 
     public RecipeDetailsFragment() {
@@ -80,7 +79,7 @@ public class RecipeDetailsFragment extends Fragment implements StepAdapter.StepO
             }
         }
 
-        ingredientAdapter = new IngredientAdapter(getContext(), ingredients);
+        IngredientAdapter ingredientAdapter = new IngredientAdapter(getContext(), ingredients);
         recyclerViewIngredients.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewIngredients.setAdapter(ingredientAdapter);
 
@@ -97,7 +96,8 @@ public class RecipeDetailsFragment extends Fragment implements StepAdapter.StepO
             listener = (RecipeDetailsOnClickListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement RecipeDetailsOnClickListener");
+                    + getString(R.string.must_implement)
+                    + RecipeDetailsOnClickListener.class.getSimpleName());
         }
     }
 
@@ -112,6 +112,7 @@ public class RecipeDetailsFragment extends Fragment implements StepAdapter.StepO
         super.onSaveInstanceState(outState);
         outState.putIntArray(getString(R.string.scroll_position),
                 new int[]{nestedScrollViewRecipeDetails.getScrollX(), nestedScrollViewRecipeDetails.getScrollY()});
+        outState.putInt(getString(R.string.selected_row_index), stepAdapter.getSelectedRowIndex());
     }
 
     @Override
@@ -126,12 +127,19 @@ public class RecipeDetailsFragment extends Fragment implements StepAdapter.StepO
                     }
                 });
             }
+            int selectedRowIndex = savedInstanceState.getInt(getString(R.string.selected_row_index));
+            stepAdapter.setSelectedRowIndex(selectedRowIndex);
+            stepAdapter.notifyDataSetChanged();
         }
     }
 
     @Override
     public void onClick(int position) {
         listener.onStepSelected(position);
+    }
+
+    public StepAdapter getStepAdapter() {
+        return stepAdapter;
     }
 
     /**

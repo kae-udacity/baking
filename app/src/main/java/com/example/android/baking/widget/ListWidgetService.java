@@ -14,7 +14,7 @@ import com.example.android.baking.data.Recipe;
 import java.util.List;
 
 /**
- * Created by Kenneth on 13/12/2017.
+ * Handles requests from the remote adapter for RemoteViews.
  */
 
 
@@ -29,7 +29,6 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private Context context;
     private List<Ingredient> ingredients;
-    private Recipe recipe;
 
     ListRemoteViewsFactory(Context context) {
         this.context = context;
@@ -40,7 +39,6 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     }
 
-    //called on start and when notifyAppWidgetViewDataChanged is called
     @Override
     public void onDataSetChanged() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(
@@ -58,7 +56,7 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
             return;
         }
 
-        recipe = Recipe.fromJson(serializedRecipe);
+        Recipe recipe = Recipe.fromJson(serializedRecipe);
         ingredients = recipe.getIngredients();
     }
 
@@ -86,10 +84,6 @@ class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         String quantityMeasurement = ingredient.getQuantity() + " " + ingredient.getMeasure().toLowerCase();
         views.setTextViewText(R.id.widget_text_view_ingredient_quantity_measurement, quantityMeasurement);
         views.setTextViewText(R.id.widget_text_view_ingredient_name, ingredient.getName());
-
-//        Intent fillInIntent = new Intent();
-//        fillInIntent.putExtra(context.getString(R.string.recipe), recipe);
-//        views.setOnClickFillInIntent(R.id.widget_ingredient_list_item, fillInIntent);
 
         return views;
     }

@@ -10,7 +10,6 @@
     <string name="measure" translatable="false">measure</string>
     <string name="quantity" translatable="false">quantity</string>
     <string name="steps" translatable="false">steps</string>
-    <string name="step" translatable="false">step</string>
     <string name="description" translatable="false">description</string>
     <string name="video_url" translatable="false">videoURL</string>
     <string name="thumbnail_url" translatable="false">thumbnailURL</string>
@@ -24,26 +23,23 @@
     <string name="ingredients_header">Ingredients:</string>
     <string name="steps_header">Steps:</string>
     <string name="short_description" translatable="false">shortDescription</string>
-    <string name="more_info">More info</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-    <string name="image">image</string>
+    <string name="image" translatable="false">image</string>
     <string name="recipe_image">Recipe image</string>
-    <string name="current_step">current_step</string>
-    <string name="previous_step">previous_step</string>
-    <string name="next_step">next_step</string>
-    <string name="step_position">step_position</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
-    <string name="image_url">recipe_image_url</string>
+    <string name="step_position" translatable="false">step_position</string>
     <string name="nutella_pie">Nutella Pie</string>
     <string name="brownies">Brownies</string>
     <string name="yellow_cake">Yellow Cake</string>
     <string name="cheesecake">Cheesecake</string>
-    <string name="action_bar">action_bar</string>
-    <string name="baking">Baking</string>
+    <string name="action_bar" translatable="false">action_bar</string>
     <string name="recipe_cannot_be_displayed">Recipe cannot be displayed.</string>
-    <string name="baking_preferences">baking_preferences</string>
-    <string name="serialized_recipe">serialized_recipe</string>
-    <string name="scroll_position">scroll_position</string>
+    <string name="baking_preferences" translatable="false">baking_preferences</string>
+    <string name="serialized_recipe" translatable="false">serialized_recipe</string>
+    <string name="scroll_position" translatable="false">scroll_position</string>
+    <string name="selected_row_index" translatable="false">selected_row_index</string>
+    <string name="choose_a_recipe">Choose a recipe</string>
+    <string name="must_implement" translatable="false">must implement</string>
+    <string name="media_url_not_found">Media URL could not be found.</string>
+    <string name="step_could_not_be_loaded">Step could not be loaded.</string>
 </resources>

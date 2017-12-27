@@ -1,16 +1,22 @@
 package com.example.android.baking.activity;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.android.baking.R;
+import com.example.android.baking.adapter.StepAdapter;
 import com.example.android.baking.data.Recipe;
 import com.example.android.baking.data.Step;
 import com.example.android.baking.fragment.RecipeDetailsFragment;
 import com.example.android.baking.fragment.StepDetailsFragment;
+import com.example.android.baking.idlingresource.ExoPlayerIdlingResource;
 import com.example.android.baking.util.FragmentUtils;
 
 import java.util.ArrayList;
@@ -19,6 +25,9 @@ import java.util.List;
 public class RecipeDetailsActivity extends AppCompatActivity implements
         RecipeDetailsFragment.RecipeDetailsOnClickListener,
         StepDetailsFragment.StepDetailsOnClickListener {
+
+    @Nullable
+    private ExoPlayerIdlingResource idlingResource;
 
     private Recipe recipe;
     private int position;
@@ -77,6 +86,15 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
                 bundle.putParcelableArrayList(getString(R.string.steps), (ArrayList<Step>) steps);
                 bundle.putInt(getString(R.string.step_position), position);
                 FragmentUtils.replaceDetailsFragment(this, bundle);
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                RecipeDetailsFragment recipeDetailsFragment = (RecipeDetailsFragment) fragmentManager
+                        .findFragmentByTag(RecipeDetailsFragment.class.getSimpleName());
+                if (recipeDetailsFragment != null) {
+                    StepAdapter stepAdapter = recipeDetailsFragment.getStepAdapter();
+                    stepAdapter.setSelectedRowIndex(position);
+                    stepAdapter.notifyDataSetChanged();
+                }
             }
         } else {
             List<Step> steps = recipe.getSteps();
@@ -91,5 +109,21 @@ public class RecipeDetailsActivity extends AppCompatActivity implements
             }
             startActivity(intent);
         }
+    }
+
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (idlingResource == null) {
+            idlingResource = new ExoPlayerIdlingResource();
+        }
+        return idlingResource;
+    }
+
+    public void setIdleState(boolean idle) {
+        if (idlingResource == null) {
+            return;
+        }
+        idlingResource.setIdleState(idle);
     }
 }

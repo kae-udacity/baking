@@ -8,13 +8,12 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.widget.ListView;
 import android.widget.RemoteViews;
 
 import com.example.android.baking.R;
 import com.example.android.baking.activity.RecipeDetailsActivity;
 import com.example.android.baking.data.Recipe;
-import com.example.android.baking.provider.RecipeContract;
+import com.example.android.baking.contract.RecipeContract;
 
 /**
  * Implementation of App Widget functionality.
@@ -65,11 +64,11 @@ public class RecipeWidgetProvider extends AppWidgetProvider {
 
     @Override
     public void onEnabled(Context context) {
-        // Enter relevant functionality for when the first widget is created
+
     }
 
     @Override
     public void onDisabled(Context context) {
-        // Enter relevant functionality for when the last widget is disabled
+
     }
 }

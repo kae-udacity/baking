@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.baking.R;
+import com.example.android.baking.activity.RecipeDetailsActivity;
 import com.example.android.baking.activity.StepDetailsActivity;
 import com.example.android.baking.data.Step;
 import com.example.android.baking.media.MediaSessionCallback;
@@ -84,13 +85,13 @@ public class StepDetailsFragment extends Fragment implements ExoPlayer.EventList
     @BindView(R.id.button_next_step)
     Button buttonNextStep;
 
-    private StepDetailsOnClickListener listener;
     private static MediaSessionCompat mediaSession;
+    private StepDetailsOnClickListener listener;
     private SimpleExoPlayer exoPlayer;
     private PlaybackStateCompat.Builder stateBuilder;
+    private String videoUrl;
     private long playbackPosition;
     private boolean playWhenReady = true;
-    private String videoUrl;
 
     public StepDetailsFragment() {
 
@@ -114,6 +115,7 @@ public class StepDetailsFragment extends Fragment implements ExoPlayer.EventList
         View view = inflater.inflate(R.layout.fragment_step_details, container, false);
         ButterKnife.bind(this, view);
 
+        Context context = getContext();
         Bundle bundle = getArguments();
         List<Step> steps = null;
         int position = -1;
@@ -121,18 +123,18 @@ public class StepDetailsFragment extends Fragment implements ExoPlayer.EventList
             steps = bundle.getParcelableArrayList(getString(R.string.steps));
             position = bundle.getInt(getString(R.string.step_position));
         } else {
-            Toast.makeText(getContext(), "Media URL could not be found.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, R.string.media_url_not_found, Toast.LENGTH_SHORT).show();
         }
 
         if (steps != null) {
             if (position < 0 || position > steps.size()) {
-                Toast.makeText(getContext(), "Step could not be loaded.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.step_could_not_be_loaded, Toast.LENGTH_SHORT).show();
                 return view;
             }
             Step currentStep = steps.get(position);
 
             if (currentStep == null) {
-                Toast.makeText(getContext(), "Step could not be loaded.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, R.string.step_could_not_be_loaded, Toast.LENGTH_SHORT).show();
                 return view;
             }
 
@@ -147,11 +149,12 @@ public class StepDetailsFragment extends Fragment implements ExoPlayer.EventList
             }
 
             videoUrl = currentStep.getVideoUrl();
-            if (!TextUtils.isEmpty(videoUrl) && NetworkUtils.isOnline(getContext())) {
-                initializeMediaSession(getContext());
+            if (!TextUtils.isEmpty(videoUrl) && NetworkUtils.isOnline(context)) {
+                initializeMediaSession(context);
 
                 Configuration configuration = getResources().getConfiguration();
-                if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                if (configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+                        && !getResources().getBoolean(R.bool.isTablet)) {
                     if (actionBar != null) {
                         actionBar.hide();
                     }
@@ -181,14 +184,14 @@ public class StepDetailsFragment extends Fragment implements ExoPlayer.EventList
                 }
 
                 String imageUrl = currentStep.getThumbnailUrl();
-                int placeholderId = ImageUtils.getImageResourceId(getContext(), recipeName);
+                int placeholderId = ImageUtils.getImageResourceId(context, recipeName);
                 if (!TextUtils.isEmpty(imageUrl)) {
-                    Picasso.with(getContext())
+                    Picasso.with(context)
                             .load(imageUrl)
                             .placeholder(placeholderId)
                             .into(imageViewStep);
                 } else {
-                    Picasso.with(getContext())
+                    Picasso.with(context)
                             .load(placeholderId)
                             .into(imageViewStep);
                 }
@@ -236,7 +239,8 @@ public class StepDetailsFragment extends Fragment implements ExoPlayer.EventList
             listener = (StepDetailsOnClickListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement StepDetailsOnClickListener");
+                    + getString(R.string.must_implement)
+                    + StepDetailsOnClickListener.class.getSimpleName());
         }
     }
 
@@ -385,9 +389,17 @@ public class StepDetailsFragment extends Fragment implements ExoPlayer.EventList
                     exoPlayer.getCurrentPosition(),
                     1f
             );
-            StepDetailsActivity stepDetailsActivity = (StepDetailsActivity) getActivity();
-            if (stepDetailsActivity != null) {
-                stepDetailsActivity.setIdleState(true);
+
+            if (getResources().getBoolean(R.bool.isTablet)) {
+                RecipeDetailsActivity recipeDetailsActivity = (RecipeDetailsActivity) getActivity();
+                if (recipeDetailsActivity != null) {
+                    recipeDetailsActivity.setIdleState(true);
+                }
+            } else {
+                StepDetailsActivity stepDetailsActivity = (StepDetailsActivity) getActivity();
+                if (stepDetailsActivity != null) {
+                    stepDetailsActivity.setIdleState(true);
+                }
             }
         } else if (playbackState == ExoPlayer.STATE_READY) {
             stateBuilder.setState(

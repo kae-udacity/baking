@@ -48,64 +48,72 @@ public class StepDetailsActivityTest {
     private ExoPlayerIdlingResource idlingResource;
     private IdlingRegistry idlingRegistry;
     private Context context;
+    private boolean tablet;
 
     @Before
     public void registerIdlingResource() {
-        idlingResource = (ExoPlayerIdlingResource) stepDetailsActivityTestRule
-                .getActivity()
-                .getIdlingResource();
+        context = stepDetailsActivityTestRule.getActivity();
+        tablet = context.getResources().getBoolean(R.bool.isTablet);
+        if (!tablet) {
+            idlingResource = (ExoPlayerIdlingResource) stepDetailsActivityTestRule
+                    .getActivity()
+                    .getIdlingResource();
 
-        idlingRegistry = IdlingRegistry.getInstance();
-        idlingRegistry.register(idlingResource);
-    }
-
-    @Before
-    public void getContext() {
-        context = mainActivityTestRule.getActivity();
+            idlingRegistry = IdlingRegistry.getInstance();
+            idlingRegistry.register(idlingResource);
+        }
     }
 
     @Test
     public void clickNextButton_NextStepIsDisplayed() {
-        onView(withId(R.id.recycler_view_recipes))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.recycler_view_steps))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.button_next_step)).perform(click());
+        if (!tablet) {
+            onView(withId(R.id.recycler_view_recipes))
+                    .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            onView(withId(R.id.recycler_view_steps))
+                    .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            onView(withId(R.id.button_next_step)).perform(click());
 
-        onView(allOf(isDescendantOfA(withResourceName(context.getString(R.string.action_bar))), withText(NUTELLA_PIE)))
-                .check(matches(isDisplayed()));
+            onView(allOf(isDescendantOfA(withResourceName(context.getString(R.string.action_bar))), withText(NUTELLA_PIE)))
+                    .check(matches(isDisplayed()));
 
-        onView(withId(R.id.text_view_step_description)).check(matches(withText(STEP_TWO_DESCRIPTION)));
+            onView(withId(R.id.text_view_step_description)).check(matches(withText(STEP_TWO_DESCRIPTION)));
+        }
     }
 
     @Test
     public void clickPreviousButton_PreviousStepIsDisplayed() {
-        onView(withId(R.id.recycler_view_recipes))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.recycler_view_steps))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
-        onView(withId(R.id.button_previous_step)).perform(click());
+        if (!tablet) {
+            onView(withId(R.id.recycler_view_recipes))
+                    .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            onView(withId(R.id.recycler_view_steps))
+                    .perform(RecyclerViewActions.actionOnItemAtPosition(1, click()));
+            onView(withId(R.id.button_previous_step)).perform(click());
 
-        onView(allOf(isDescendantOfA(withResourceName(context.getString(R.string.action_bar))), withText(NUTELLA_PIE)))
-                .check(matches(isDisplayed()));
+            onView(allOf(isDescendantOfA(withResourceName(context.getString(R.string.action_bar))), withText(NUTELLA_PIE)))
+                    .check(matches(isDisplayed()));
 
-        onView(withId(R.id.text_view_step_description)).check(matches(withText(STEP_ONE_DESCRIPTION)));
+            onView(withId(R.id.text_view_step_description)).check(matches(withText(STEP_ONE_DESCRIPTION)));
+        }
     }
 
     @Test
     public void clickPlayerPauseButton_PlayButtonIsDisplayed() {
-        onView(withId(R.id.recycler_view_recipes))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.recycler_view_steps))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-        onView(withId(R.id.exo_pause))
-                .perform(click());
-        onView(withId(R.id.exo_play))
-                .check(matches(isDisplayed()));
+        if (!tablet) {
+            onView(withId(R.id.recycler_view_recipes))
+                    .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            onView(withId(R.id.recycler_view_steps))
+                    .perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            onView(withId(R.id.exo_pause))
+                    .perform(click());
+            onView(withId(R.id.exo_play))
+                    .check(matches(isDisplayed()));
+        }
     }
 
     @After
     public void unregisterIdlingResource() {
-        idlingRegistry.unregister(idlingResource);
+        if (!tablet) {
+            idlingRegistry.unregister(idlingResource);
+        }
     }
 }

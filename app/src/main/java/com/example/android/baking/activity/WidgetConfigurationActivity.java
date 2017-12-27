@@ -40,8 +40,8 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements
     @BindView(R.id.widget_loading_indicator)
     ProgressBar loadingIndicator;
 
-    private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     private RecipeAdapter recipeAdapter;
+    private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     private LoaderManager.LoaderCallbacks<List<Recipe>> recipeLoaderCallbacks =
             new LoaderManager.LoaderCallbacks<List<Recipe>>() {
@@ -75,7 +75,7 @@ public class WidgetConfigurationActivity extends AppCompatActivity implements
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle("Choose a recipe");
+            actionBar.setTitle(R.string.choose_a_recipe);
         }
 
         setResult(RESULT_CANCELED);
